@@ -1,19 +1,27 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../lib/firebase";
+import { useIsLoggedIn } from "../lib/hooks";
 
-export default function Layout({children}) {
+export default function Layout({ children }) {
   return (
     <>
       <Navbar />
-      <div id="main">
-        {children}
-      </div>
+      <main>{children}</main>
       <Footer />
     </>
-  )
+  );
 }
 
 const Navbar = () => {
+  const {user} = useIsLoggedIn();
+
+  const logout = () => {
+    signOut(auth).then((result) => {
+      console.log(result);
+    });
+  };
+
   return (
     <nav>
       <div className="logo">
@@ -21,14 +29,22 @@ const Navbar = () => {
       </div>
       <div className="nav-links">
         <Link to="/">Home</Link>
-        <Link to="/Login">Login</Link>
         <Link to="/chats">Chats</Link>
-        <Link to="/profile">Profile</Link>
+        {user ? (
+          <>
+            <Link to="/profile">Profile</Link>
+            <Link to="/" onClick={logout}>
+              Logout
+            </Link>
+          </>
+        ) : (
+          <Link to="/Login">Login</Link>
+        )}
       </div>
     </nav>
-  )
-}
+  );
+};
 
 const Footer = () => {
-  return <p>copyright 2021</p>
-}
+  return <p>copyright 2021</p>;
+};

@@ -1,4 +1,15 @@
-
+main{
+  height: 88vh;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 60rem;
+  margin-inline: auto;
+  min-height: 100%;
+}
 nav {
   display: flex;
   justify-content: flex-end;
@@ -12,4 +23,19 @@ nav {
 
 .nav-links a{
  padding: 1rem;
+}
+
+.features-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.feature{
+  max-width: 16rem;
+  text-align: center;
+}
+
+.feature img{
+  width: 100%;
 }
